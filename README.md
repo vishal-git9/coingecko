@@ -1,5 +1,3 @@
-# 📋 README.md for Token Portfolio Tracker. Here's a complete README.md file for your GitHub repository:
-
 ```markdown
 # 🪙 Token Portfolio Tracker
 
