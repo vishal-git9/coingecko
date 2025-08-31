@@ -2,7 +2,6 @@
 import React, { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DonutChart } from './DonutChart'
-import { setLastUpdated } from '../../store/slices/portfolioSlice'
 import { formatCurrency } from '../../utils/formatters'
 import { useGetCoinsMarketDataQuery } from '../../store/slices/apiSlice'
 import type { AppDispatch, RootState } from '../../store'
@@ -21,10 +20,9 @@ const CHART_COLORS = [
 ]
 
 export const PortfolioCard: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
   const { watchlist, holdings, lastUpdated } = useSelector((state: RootState) => state.portfolio)
   
-  const { data: coinsData, isLoading, refetch } = useGetCoinsMarketDataQuery(watchlist, {
+  const { data: coinsData, isLoading } = useGetCoinsMarketDataQuery(watchlist, {
     skip: watchlist.length === 0,
     pollingInterval: 30000, // Update every 30 seconds
   })
@@ -47,7 +45,6 @@ export const PortfolioCard: React.FC = () => {
         value,
       }
     })
-    // REMOVE THIS FILTER - Include ALL tokens, even with zero holdings
     // .filter(item => item.value > 0) 
   }, [coinsData, holdings])
 
@@ -65,15 +62,7 @@ export const PortfolioCard: React.FC = () => {
       percentage: portfolioTotal > 0 ? (token.value / portfolioTotal) * 100 : 0,
     }))
 
-  // Handle refresh with timestamp update
-  const handleRefresh = async () => {
-    try {
-      await refetch()
-      dispatch(setLastUpdated(Date.now()))
-    } catch (error) {
-      console.error('Failed to refresh data:', error)
-    }
-  }
+
 
   if (isLoading) {
     return (
@@ -92,13 +81,13 @@ export const PortfolioCard: React.FC = () => {
 
   return (
     <div className="bg-gray-900 rounded-2xl p-8 border border-gray-800">
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row items-start justify-between">
         {/* Left side - Portfolio Total */}
         <div className="flex-1">
           <h2 className="text-gray-400 text-sm font-medium mb-2">Portfolio Total</h2>
-          <p className="text-5xl font-bold text-white mb-6">
-            {formatCurrency(portfolioTotal)}
-          </p>
+          <p className="text-3xl lg:text-5xl font-bold text-white mb-4">
+          {formatCurrency(portfolioTotal)}
+        </p>
           {lastUpdated && (
             <p className="text-sm text-gray-500">
               Last updated: {new Date(lastUpdated).toLocaleTimeString()}
@@ -107,8 +96,7 @@ export const PortfolioCard: React.FC = () => {
         </div>
         
         {/* Right side - Chart and Legend */}
-        <div className="flex items-center gap-8">
-          {/* Donut Chart */}
+        <div className="flex items-center flex-col sm:flex-row mt-5 gap-8">
           <div className="w-64 h-64 relative">
             {chartData.length > 0 ? (
               <DonutChart data={chartData} />
@@ -119,10 +107,10 @@ export const PortfolioCard: React.FC = () => {
             )}
           </div>
           
-          {/* Legend - Show ALL tokens with holdings */}
-          <div className="w-[200px]">
+          {/* Legend - ALL tokens with holdings */}
+            <div className="w-full sm:w-[100%]">
             <h3 className="text-gray-400 text-sm font-medium mb-4">Portfolio Breakdown</h3>
-            <div className="h-[200px] overflow-auto scrollbar-primary">
+            <div className="h-[200px] overflow-auto overflow-x-hidden scrollbar-primary">
               <div className="space-y-3 pr-2">
                 {chartData.length > 0 ? (
                   chartData.map((item, index) => (

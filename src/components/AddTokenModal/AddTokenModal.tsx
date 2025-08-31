@@ -8,11 +8,10 @@ import {
 } from '../ui/dialog'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
-import { Search, X } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { TrendingTokens } from './TrendingTokens'
 import { TokenSearch } from './TokenSearch'
 import type { AppDispatch } from '../../store'
-import { ScrollArea } from '../ui/scroll-area'
 
 interface AddTokenModalProps {
   isOpen: boolean
@@ -57,14 +56,14 @@ export const AddTokenModal: React.FC<AddTokenModalProps> = ({ isOpen, onClose })
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-2xl bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 text-white p-0 gap-0 overflow-hidden">
-        {/* Modal Header - Exact match to image */}
+        {/* Modal Header  */}
         <div className="flex flex-col p-6 pb-4 space-y-4">
           <div className="flex items-center justify-between">
            
            
           </div>
           
-          {/* Search Input - Exact styling from image */}
+          {/* Search Input */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
             <Input
@@ -78,7 +77,7 @@ export const AddTokenModal: React.FC<AddTokenModalProps> = ({ isOpen, onClose })
           </div>
         </div>
 
-        {/* Content Area - Matches image exactly */}
+        {/* Content Area  */}
         <div className="px-6 pb-6">
           <div className="pr-2 h-[420px] w-full overflow-scroll overflow-x-hidden">
             {searchTerm ? (
@@ -102,7 +101,7 @@ export const AddTokenModal: React.FC<AddTokenModalProps> = ({ isOpen, onClose })
             )}
           </div>
 
-          {/* Footer - Matches image design */}
+          {/* Footer  */}
           <div className="flex items-center justify-end pt-4 mt-4 border-t border-gray-800/50">
             <Button
               onClick={handleAddToWatchlist}

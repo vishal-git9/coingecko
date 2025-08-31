@@ -8,7 +8,6 @@ interface SparklineChartProps {
 }
 
 export const SparklineChart: React.FC<SparklineChartProps> = ({ 
-  data, 
   isPositive,
   color 
 }) => {

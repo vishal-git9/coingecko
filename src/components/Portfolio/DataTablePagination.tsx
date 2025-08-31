@@ -1,5 +1,4 @@
 // src/components/Portfolio/DataTablePagination.tsx
-import React from 'react'
 import {
   ChevronLeft,
   ChevronRight,

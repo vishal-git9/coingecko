@@ -77,7 +77,7 @@ export const TrendingTokens: React.FC<TrendingTokensProps> = ({
               </p>
             </div>
             
-            {/* Radio Button - Exact match to image */}
+            {/* Radio Button */}
             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
               isSelected 
                 ? 'border-white bg-white' 
