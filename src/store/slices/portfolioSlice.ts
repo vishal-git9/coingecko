@@ -76,6 +76,7 @@ const portfolioSlice = createSlice({
     updateHoldings: (state, action: PayloadAction<UpdateHoldingsPayload>) => {
       const { coinId, amount } = action.payload
       state.holdings[coinId] = amount
+      state.lastUpdated = Date.now() // Update timestamp when holdings change
     },
     setLastUpdated: (state, action: PayloadAction<number>) => {
       state.lastUpdated = action.payload

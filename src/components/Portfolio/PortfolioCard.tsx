@@ -1,12 +1,12 @@
 // src/components/Portfolio/PortfolioCard.tsx
 import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { DonutChart } from './DonutChart'
-import type { RootState } from '../../store'
-import { useGetCoinsMarketDataQuery } from '../../store/slices/apiSlice'
+import { setLastUpdated } from '../../store/slices/portfolioSlice'
 import { formatCurrency } from '../../utils/formatters'
+import { useGetCoinsMarketDataQuery } from '../../store/slices/apiSlice'
+import type { AppDispatch, RootState } from '../../store'
 
-// src/components/Portfolio/PortfolioCard.tsx (Updated portion)
 const CHART_COLORS = [
   '#F97316', // Bitcoin - Orange
   '#8B5CF6', // Ethereum - Purple  
@@ -20,12 +20,11 @@ const CHART_COLORS = [
   '#8B5CF6', // Polygon - Purple variant
 ]
 
-
-
 export const PortfolioCard: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const { watchlist, holdings, lastUpdated } = useSelector((state: RootState) => state.portfolio)
   
-  const { data: coinsData, isLoading } = useGetCoinsMarketDataQuery(watchlist, {
+  const { data: coinsData, isLoading, refetch } = useGetCoinsMarketDataQuery(watchlist, {
     skip: watchlist.length === 0,
     pollingInterval: 30000, // Update every 30 seconds
   })
@@ -47,19 +46,34 @@ export const PortfolioCard: React.FC = () => {
         holding,
         value,
       }
-    }).filter(item => item.value > 0) // Only show tokens with holdings
+    })
+    // REMOVE THIS FILTER - Include ALL tokens, even with zero holdings
+    // .filter(item => item.value > 0) 
   }, [coinsData, holdings])
 
   const portfolioTotal = portfolioData.reduce((sum, token) => sum + token.value, 0)
 
-  const chartData = portfolioData.map((token, index) => ({
-    id: token.id,
-    name: token.name,
-    symbol: token.symbol,
-    value: token.value,
-    color: CHART_COLORS[index % CHART_COLORS.length],
-    percentage: portfolioTotal > 0 ? (token.value / portfolioTotal) * 100 : 0,
-  }))
+  // Include ALL tokens with holdings > 0 OR show all tokens with their holdings
+  const chartData = portfolioData
+    .filter(token => token.holding > 0) // Only show tokens with actual holdings
+    .map((token, index) => ({
+      id: token.id,
+      name: token.name,
+      symbol: token.symbol,
+      value: token.value,
+      color: CHART_COLORS[index % CHART_COLORS.length],
+      percentage: portfolioTotal > 0 ? (token.value / portfolioTotal) * 100 : 0,
+    }))
+
+  // Handle refresh with timestamp update
+  const handleRefresh = async () => {
+    try {
+      await refetch()
+      dispatch(setLastUpdated(Date.now()))
+    } catch (error) {
+      console.error('Failed to refresh data:', error)
+    }
+  }
 
   if (isLoading) {
     return (
@@ -96,28 +110,42 @@ export const PortfolioCard: React.FC = () => {
         <div className="flex items-center gap-8">
           {/* Donut Chart */}
           <div className="w-64 h-64 relative">
-            <DonutChart data={chartData} />
+            {chartData.length > 0 ? (
+              <DonutChart data={chartData} />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gray-800 rounded-full">
+                <p className="text-gray-400 text-sm">No holdings to display</p>
+              </div>
+            )}
           </div>
           
-          {/* Legend */}
-          <div className="space-y-3">
-            <h3 className="text-gray-400 text-sm font-medium mb-4">Portfolio Total</h3>
-            {chartData.map((item, index) => (
-              <div key={`${item.id}-${index}`} className="flex items-center justify-between min-w-[200px]">
-                <div className="flex items-center gap-3">
-                  <div 
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="text-gray-300 text-sm">
-                    {item.name} ({item.symbol.toUpperCase()})
-                  </span>
-                </div>
-                <span className="text-gray-400 text-sm font-medium">
-                  {item.percentage.toFixed(1)}%
-                </span>
+          {/* Legend - Show ALL tokens with holdings */}
+          <div className="w-[200px]">
+            <h3 className="text-gray-400 text-sm font-medium mb-4">Portfolio Breakdown</h3>
+            <div className="h-[200px] overflow-auto scrollbar-primary">
+              <div className="space-y-3 pr-2">
+                {chartData.length > 0 ? (
+                  chartData.map((item, index) => (
+                    <div key={`${item.id}-${index}`} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className="w-3 h-3 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: item.color }}
+                        />
+                        <span className="text-gray-300 text-sm truncate">
+                          {item.name} ({item.symbol.toUpperCase()})
+                        </span>
+                      </div>
+                      <span className="text-gray-400 text-sm font-medium flex-shrink-0">
+                        {item.percentage.toFixed(1)}%
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-500 text-sm">Add holdings to see portfolio breakdown</p>
+                )}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

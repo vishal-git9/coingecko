@@ -5,7 +5,6 @@ import { WagmiConfig } from 'wagmi'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PortfolioCard } from './components/Portfolio/PortfolioCard'
-import { WatchlistTable } from './components/Portfolio/WatchlistTable'
 import { AddTokenModal } from './components/AddTokenModal/AddTokenModal'
 import { WalletConnect } from './components/Layout/WalletConnect'
 import { loadFromStorage } from './store/slices/portfolioSlice'
@@ -13,6 +12,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import type { AppDispatch } from './store'
 import type { PortfolioState } from './types'
 import { config } from './config/wagmi'
+import { WatchlistTable } from './components/Portfolio/WatchlistTable'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,7 +46,7 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <WagmiConfig config={config}>
-        <RainbowKitProvider initialChain={config.chains}>
+        <RainbowKitProvider >
           <div className="min-h-screen bg-gray-950 text-white">
             {/* Header - Exact match */}
             <header className="bg-gray-900 border-b border-gray-800 px-6 py-4">
@@ -67,31 +67,8 @@ const App: React.FC = () => {
             <main className="max-w-7xl mx-auto px-6 py-8">
               <div className="space-y-8">
                 {/* Portfolio Card */}
-                <PortfolioCard />
-                
-                {/* Watchlist Section */}
-               
-<div className="flex items-center justify-between">
-  <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-    <span className="text-green-400">⭐</span> Watchlist
-  </h2>
-  <div className="flex items-center gap-3">
-    <button className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-      </svg>
-      Refresh Prices
-    </button>
-    <button
-      onClick={() => setIsAddTokenModalOpen(true)}
-      className="flex items-center gap-2 px-6 py-2.5 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors"
-    >
-      <span className="text-lg leading-none">+</span>
-      Add Token
-    </button>
-  </div>
-</div>
-                
+                <PortfolioCard />               
+                {/* Watchlist Table */}
                 <WatchlistTable />
               </div>
             </main>
