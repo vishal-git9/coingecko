@@ -64,7 +64,7 @@ const App: React.FC = () => {
             </header>
 
             {/* Main Content */}
-            <main className="max-w-5xl mx-auto px-6 py-8">
+            <main className="max-w-7xl mx-auto px-6 py-8">
               <div className="space-y-8">
                 {/* Portfolio Card */}
                 <PortfolioCard />               
