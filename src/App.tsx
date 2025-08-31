@@ -47,13 +47,13 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <WagmiConfig config={config}>
         <RainbowKitProvider >
-          <div className="min-h-screen bg-gray-950 text-white">
+          <div className="min-h-screen bg-gray-950 text-white overflow-hidden">
             {/* Header - Exact match */}
             <header className="bg-gray-900 border-b border-gray-800 px-6 py-4">
               <div className="max-w-7xl mx-auto flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="w-8 h-8 bg-[#A9E851] rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
                   </div>

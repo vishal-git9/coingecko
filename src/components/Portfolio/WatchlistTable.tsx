@@ -64,7 +64,6 @@ import { SparklineChart } from './SparklineChart'
 import { formatCurrency, formatPercentage } from '../../utils/formatters'
 import type { AppDispatch, RootState } from '../../store'
 import { useMobile } from '../../hooks/usemobile'
-
 interface TokenData {
   id: string
   name: string
@@ -525,7 +524,9 @@ export const WatchlistTable: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-            <span className="text-green-400">⭐</span> Watchlist
+            <span className="text-green-400">
+            <img src={"/star.svg"} alt="Start" />
+            </span> Watchlist
           </h2>
           <div className="flex items-center gap-3">
             <Button
@@ -541,7 +542,7 @@ export const WatchlistTable: React.FC = () => {
             </Button>
             <Button
               onClick={() => setIsAddTokenModalOpen(true)}
-              className="bg-green-500 hover:bg-green-600 text-white"
+              className="bg-[#A9E851] hover:bg-green-600 text-white"
             >
               <Plus className="mr-2 h-4 w-4" />
               Add Token
@@ -575,7 +576,9 @@ export const WatchlistTable: React.FC = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-          <span className="text-green-400">⭐</span> Watchlist
+          <span className="text-green-400">
+          <img src={"/star.svg"} alt="Start" />
+            </span> Watchlist
         </h2>
         <div className="flex items-center gap-3">
           <Button
@@ -590,7 +593,7 @@ export const WatchlistTable: React.FC = () => {
           </Button>
           <Button
             onClick={() => setIsAddTokenModalOpen(true)}
-            className="bg-green-500 hover:bg-green-600 text-white"
+            className="bg-[#A9E851] hover:bg-green-600 text-black transition-colors"
           >
             <Plus className="mr-2 h-4 w-4" />
             Add Token

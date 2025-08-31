@@ -38,7 +38,7 @@ export const WalletConnect: React.FC = () => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className="px-6 py-2 bg-green-500 text-white rounded-xl font-medium hover:bg-green-600 transition-colors shadow-lg"
+                    className="px-6 py-2 bg-[#A9E851] text-white rounded-xl font-medium hover:bg-green-600 transition-colors shadow-lg"
                   >
                     Connect Wallet
                   </button>

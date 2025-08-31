@@ -106,7 +106,7 @@ export const AddTokenModal: React.FC<AddTokenModalProps> = ({ isOpen, onClose })
             <Button
               onClick={handleAddToWatchlist}
               disabled={selectedTokens.length === 0}
-              className="px-6 py-2 bg-green-500/90 hover:bg-green-500 text-white text-sm font-medium rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+              className="px-6 py-2 bg-[#A9E851] hover:bg-green-500 text-black text-sm font-medium rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all"
             >
               Add to Wishlist
             </Button>
