@@ -89,7 +89,7 @@ export const PortfolioCard: React.FC = () => {
           {formatCurrency(portfolioTotal)}
         </p>
           {lastUpdated && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-500">
               Last updated: {new Date(lastUpdated).toLocaleTimeString()}
             </p>
           )}
