@@ -141,10 +141,5 @@ If you have any questions or run into issues, please open``` issue on GitHub.
 <img width="1133" height="559" alt="Screenshot from 2025-08-31 20-21-08" src="https://github.com/user-attachments/assets/f5097668-b461-462f-832a-f4c4b2d5c88c" />
 <img width="1133" height="559" alt="Screenshot from 2025-08-31 20-21-03" src="https://github.com/user-attachments/assets/831b662a-d079-47c7-8ea9-ba96989de4ea" />
 
-```<img width="1133" height="559" alt="Screenshot from 2025-08-31 20-20-28" src="https://github.com/user-attachments/assets/e558fa11-8580-46e8-b930-ef27076f12d6" />
-<img width="1133" height="559" alt="Screenshot from 2025-08-31 20-20-16" src="https://github.com/user-attachments/assets/5884dfad-ed3c-4f50-b48a-d9506542d032" />
-<img width="1205" height="553" alt="Screenshot from 2025-08-31 20-19-55" src="https://github.com/user-attachments/assets/6d053b46-ad43-45dc-9403-a133455d8fe0" />
-<img width="1205" height="553" alt="Screenshot from 2025-08-31 20-19-46" src="https://github.com/user-attachments/assets/1fd52e5b-44f1-491f-81f1-a5da7e3fc73b" />
-
 
 
