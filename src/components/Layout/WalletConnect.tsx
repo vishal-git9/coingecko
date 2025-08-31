@@ -1,6 +1,7 @@
 // src/components/Layout/WalletConnect.tsx
 import React from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { Button } from '../ui/button'
 
 export const WalletConnect: React.FC = () => {
   return (
@@ -35,13 +36,14 @@ export const WalletConnect: React.FC = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button
+                  <Button
                     onClick={openConnectModal}
                     type="button"
-                    className="px-6 py-2 bg-[#A9E851] text-white rounded-xl font-medium hover:bg-green-600 transition-colors shadow-lg"
+
+                    className="px-6 py-2 bg-[#A9E851] text-black font-medium hover:bg-green-600 transition-colors shadow-lg"
                   >
                     Connect Wallet
-                  </button>
+                  </Button>
                 )
               }
 
